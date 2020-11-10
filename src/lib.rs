@@ -16,7 +16,7 @@ use futures::channel::{mpsc, oneshot};
 use futures::{select, FutureExt, SinkExt, Stream, StreamExt, TryStreamExt};
 use lazy_static::lazy_static;
 use log::warn;
-use log::{info, trace};
+use log::{info, trace, debug};
 use regex::Regex;
 use std::{collections::HashMap, time::Duration};
 use tokio::net::TcpStream;
@@ -117,7 +117,7 @@ impl Deribit {
                                 };
 
                                 if let Err(msg) = waiter.send(msg) {
-                                    info!("[Servo] Orphan response: {:?}", msg);
+                                    debug!("[Servo] Orphan response: {:?}", msg);
                                 }
                             } else {
                                 let fut = stx.send(msg);

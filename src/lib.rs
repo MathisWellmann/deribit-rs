@@ -16,7 +16,7 @@ use futures::channel::{mpsc, oneshot};
 use futures::{select, FutureExt, SinkExt, Stream, StreamExt, TryStreamExt};
 use lazy_static::lazy_static;
 use log::warn;
-use log::{info, trace, debug};
+use log::{debug, info, trace};
 use regex::Regex;
 use std::{collections::HashMap, time::Duration};
 use tokio::net::TcpStream;

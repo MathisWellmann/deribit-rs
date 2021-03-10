@@ -21,11 +21,32 @@ impl BuyRequest {
     {
         BuyRequest(TradeRequest::market(instrument_name, amount))
     }
+
     pub fn limit<I>(instrument_name: I, price: f64, amount: f64) -> BuyRequest
     where
         I: Into<String>,
     {
         BuyRequest(TradeRequest::limit(instrument_name, price, amount))
+    }
+
+    pub fn stop_market<I>(instrument_name: I, trigger_price: f64, amount: f64) -> BuyRequest
+    where
+        I: Into<String>,
+    {
+        BuyRequest(TradeRequest {
+            instrument_name: instrument_name.into(),
+            amount,
+            r#type: OrderType::StopMarket,
+            label: None,
+            price: None,
+            time_in_force: TimeInForce::GoodTilCancelled,
+            max_show: None,
+            post_only: false,
+            reduce_only: false,
+            stop_price: Some(trigger_price),
+            trigger: Some(Trigger::LastPrice),
+            advanced: None,
+        })
     }
 }
 
@@ -49,11 +70,32 @@ impl SellRequest {
     {
         SellRequest(TradeRequest::market(instrument_name, amount))
     }
+
     pub fn limit<I>(instrument_name: I, price: f64, amount: f64) -> SellRequest
     where
         I: Into<String>,
     {
         SellRequest(TradeRequest::limit(instrument_name, price, amount))
+    }
+
+    pub fn stop_market<I>(instrument_name: I, trigger_price: f64, amount: f64) -> SellRequest
+        where
+            I: Into<String>,
+    {
+        SellRequest(TradeRequest {
+            instrument_name: instrument_name.into(),
+            amount,
+            r#type: OrderType::StopMarket,
+            label: None,
+            price: None,
+            time_in_force: TimeInForce::GoodTilCancelled,
+            max_show: None,
+            post_only: false,
+            reduce_only: false,
+            stop_price: Some(trigger_price),
+            trigger: Some(Trigger::LastPrice),
+            advanced: None,
+        })
     }
 }
 
